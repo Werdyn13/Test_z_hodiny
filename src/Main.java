@@ -1,17 +1,29 @@
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class Main {
     public static void main(String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        Tuzky tuzka1 = new Tuzky("Tužka1", 9);
+        Tuzky tuzka2 = new Tuzky("Tužka2", 18);
+        Tuzky tuzka3 = new Tuzky("Tužka3", 12);
 
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+        ArrayList<Tuzky> zbozi = new ArrayList<>();
+        zbozi.add(tuzka1);
+        zbozi.add(tuzka2);
+        zbozi.add(tuzka3);
 
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
+        // Try-with-resources, automaticky uzavírá BufferedWriter po dokončení
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("Soubor.txt"))) {
+            for (Tuzky t : zbozi) {
+                writer.write("Název: " + t.getNazev() + ", Cena: " + t.getCena());
+                writer.newLine();
+            }
+            System.out.println("Data byla zapsána do souboru.");
+        } catch (IOException e) {
+            // Vypíše chybovou zprávu, pokud se nepodaří zapsat do souboru
+            e.printStackTrace();
         }
     }
 }
