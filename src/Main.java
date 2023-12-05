@@ -1,4 +1,5 @@
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,8 +22,12 @@ public class Main {
                 writer.newLine();
             }
             System.out.println("Data byla zapsána do souboru.");
-        } catch (IOException e) {
-            // Vypíše chybovou zprávu, pokud se nepodaří zapsat do souboru
+        }
+        catch (FileNotFoundException e) {
+            System.err.println("Soubor nenalezen" + e.getLocalizedMessage());
+        }
+        catch (IOException e) {
+            System.err.println("Chyba zápisu do souboru" + e.getLocalizedMessage());
             e.printStackTrace();
         }
     }
